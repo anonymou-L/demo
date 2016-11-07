@@ -12,6 +12,8 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.spring.dao.ExampleBean;
 import com.spring.dao.JDBCDataSource;
+import com.spring.dao.UserDao;
+import com.spring.entity.User;
 /**
  * @author lizhang10
  * @date 20161104
@@ -48,6 +50,15 @@ public class TestCase {
 		JDBCDataSource jds = ac.getBean("dataSource",JDBCDataSource.class);
 		Connection cn = jds.getConnection();
 		System.out.println(cn);
+	}
+	@Test
+	public void testFindUserByName(){
+		String con = "applicationContext.xml";
+		ApplicationContext ac = new  ClassPathXmlApplicationContext(con);
+		UserDao userDao = ac.getBean("userDao",UserDao.class);
+		User user = userDao.findUserByName("zhangsan");
+		System.out.println(user);
+		
 	}
 
 }
