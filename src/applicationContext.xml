@@ -38,7 +38,15 @@
 			<property name="username" value="root"></property>
 			<property name="password" value=""></property>
 		</bean>
-		<bean id="userDao" class="com.spring.dao.MysqlUserDao">
-		<constructor-arg index="0" ref="dataSource"></constructor-arg>
-		</bean>
+		<!-- 构造器注入，要有需要注入对象的构造方法 -->
+		<!-- <constructor-arg index="0" ref="dataSource"></constructor-arg> -->
+		<!-- set注入需要注入对象的set，get方法 ,自动装配同样也是需要注入对象的set方法-->
+		<!-- <property name="dataSource" ref="dataSource"></property> -->
+		<bean id="userDao" class="com.spring.dao.MysqlUserDao" autowire="byName"></bean>
+		<!-- 默认注入 -->
+		<!-- <bean id="userLoginService" class="com.spring.service.UserLoginService">
+			<property name="userDao" ref="userDao"></property>
+		</bean> -->
+		<!-- 自动装配 -->
+		 <bean id="userLoginService" class="com.spring.service.UserLoginService" autowire="byName"></bean> 
 </beans>

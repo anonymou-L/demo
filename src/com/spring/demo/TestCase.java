@@ -14,6 +14,7 @@ import com.spring.dao.ExampleBean;
 import com.spring.dao.JDBCDataSource;
 import com.spring.dao.UserDao;
 import com.spring.entity.User;
+import com.spring.service.UserLoginService;
 /**
  * @author lizhang10
  * @date 20161104
@@ -56,9 +57,17 @@ public class TestCase {
 		String con = "applicationContext.xml";
 		ApplicationContext ac = new  ClassPathXmlApplicationContext(con);
 		UserDao userDao = ac.getBean("userDao",UserDao.class);
-		User user = userDao.findUserByName("zhangsan");
+		User user = userDao.findUserByName("lisi");
 		System.out.println(user);
 		
+	}
+	@Test
+	public void testUserLogin(){
+		String con = "applicationContext.xml";
+		ApplicationContext ac = new ClassPathXmlApplicationContext(con);
+		UserLoginService us = ac.getBean("userLoginService",UserLoginService.class);
+		User user = us.login("lisi", "321654");
+		System.out.println(user);
 	}
 
 }

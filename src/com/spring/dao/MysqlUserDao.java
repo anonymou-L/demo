@@ -7,8 +7,13 @@ import java.sql.ResultSet;
 import com.spring.entity.User;
 
 public class MysqlUserDao implements UserDao{
+	
 	private JDBCDataSource dataSource;
-	public MysqlUserDao(JDBCDataSource dataSource){
+	
+	public JDBCDataSource getDataSource() {
+		return dataSource;
+	}
+	public void setDataSource(JDBCDataSource dataSource) {
 		this.dataSource = dataSource;
 	}
 	@Override
@@ -18,6 +23,8 @@ public class MysqlUserDao implements UserDao{
 		String sql = "select * from user where name = ?";
 		Connection con = null;
 		try{
+			String url = dataSource.getUrl();
+			System.out.println(url);
 			con = dataSource.getConnection();
 			PreparedStatement ps = con.prepareStatement(sql);
 			ps.setString(1, name);
