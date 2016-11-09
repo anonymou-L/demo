@@ -38,7 +38,7 @@
 			<property name="username" value="root"></property>
 			<property name="password" value=""></property>
 		</bean>
-		<!-- 构造器注入，要有需要注入对象的构造方法 -->
+		<!-- 构造器注入，要有构造方法 ，注入对象作为参数-->
 		<!-- <constructor-arg index="0" ref="dataSource"></constructor-arg> -->
 		<!-- set注入需要注入对象的set，get方法 ,自动装配同样也是需要注入对象的set方法-->
 		<!-- <property name="dataSource" ref="dataSource"></property> -->
@@ -49,4 +49,70 @@
 		</bean> -->
 		<!-- 自动装配 -->
 		 <bean id="userLoginService" class="com.spring.service.UserLoginService" autowire="byName"></bean> 
+		 
+		 <!-- 参数值注入 -->
+		 <bean id="messageBean" class="com.spring.dao.MessageBean">
+		 	<property name="name" value="lizhang"></property>
+		 	<property name="password" value="123456"></property>
+		 	<property name="phone" value="15256597951"></property>
+		 	<property name="gender" value="男"></property>
+		 	<property name="list">
+		 		<list>
+		 			<value>zhangsan</value>
+		 			<value>lisi</value>
+		 			<value>wangwu</value>
+		 		</list>
+		 	</property>
+		 	<property name="set">
+		 		<set>
+		 			<value>java</value>
+		 			<value>php</value>
+		 			<value>c</value>
+		 		</set>
+		 	</property>
+		 	<property name="map">
+		 		<map>
+		 			<entry key="100" value="张三"></entry>
+		 			<entry key="101" value="李四"></entry>
+		 			<entry key="102" value="王五"></entry>
+		 		</map>
+		 	</property>
+		 	<property name="properties">
+		 		<props>
+		 			<prop key="name">admin</prop>
+		 			<prop key="password">123456</prop>
+		 		</props>
+		 	</property>
+		 </bean>
+		 
+		 <!-- 定义集合bean -->
+		 	<util:list id="list">
+		 		<value>华为</value>
+		 		<value>苹果</value>
+		 		<value>三星</value>
+		 	</util:list>
+		 	
+		 	<util:set id="set">
+		 		<value>华硕</value>
+		 		<value>联想</value>
+		 		<value>微星</value>
+		 	</util:set>
+		 	
+		 	<util:map id="map">
+		 		<entry key="1" value="中国"></entry>
+		 		<entry key="2" value="美国"></entry>
+		 		<entry key="3" value="德国"></entry>
+		 	</util:map>
+		 	
+		 	<util:properties id="properties">
+		 		<prop key="name">root</prop>
+		 		<prop key="password">123456</prop>
+		 	</util:properties>
+		 	<!-- 引用方式注入集合属性 -->
+		 	<bean id="message2" class="com.spring.dao.MessageBean">
+		 		<property name="list" ref="list"></property>
+		 		<property name="set" ref="set"></property>
+		 		<property name="map" ref="map"></property>
+		 		<property name="properties" ref="properties"></property>
+		 	</bean>
 </beans>

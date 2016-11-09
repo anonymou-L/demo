@@ -12,6 +12,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.spring.dao.ExampleBean;
 import com.spring.dao.JDBCDataSource;
+import com.spring.dao.MessageBean;
 import com.spring.dao.UserDao;
 import com.spring.entity.User;
 import com.spring.service.UserLoginService;
@@ -69,5 +70,18 @@ public class TestCase {
 		User user = us.login("lisi", "321654");
 		System.out.println(user);
 	}
-
+	@Test
+	public void testMessageBean(){
+		String con ="applicationContext.xml";
+		ApplicationContext ac = new ClassPathXmlApplicationContext(con);
+		MessageBean mb = ac.getBean("messageBean",MessageBean.class);
+		mb.excute();
+	}
+	@Test
+	public void testMessageBean2(){
+		String con = "applicationContext.xml";
+		ApplicationContext ac = new ClassPathXmlApplicationContext(con);
+		MessageBean mb = ac.getBean("message2",MessageBean.class);
+		mb.excute();
+	}
 }
