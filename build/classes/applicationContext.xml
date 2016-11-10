@@ -28,9 +28,9 @@
 		<bean id="calendarObj3" class="java.util.GregorianCalendar"></bean>
 		<bean id="dateObj" factory-bean="calendarObj3" factory-method="getTime"></bean>
 		<!-- bean依赖关系 -->
-		<bean id="exampleBean" class="com.spring.dao.ExampleBean" scope="singleton"  depends-on="exampleBean1">
-		</bean>
-		<bean id="exampleBean1" class="com.spring.dao.ExampleBean1"></bean>
+		<!-- <bean id="exampleBean" class="com.spring.dao.ExampleBean" scope="singleton"  depends-on="exampleBean1">
+		</bean> -->
+		<!-- <bean id="exampleBean1" class="com.spring.dao.ExampleBean1"></bean> -->
 		<!-- 数据源setter注入 -->
 		<bean id="dataSource" class="com.spring.dao.JDBCDataSource">
 			<property name="driver" value="com.mysql.jdbc.Driver"></property>
@@ -42,7 +42,9 @@
 		<!-- <constructor-arg index="0" ref="dataSource"></constructor-arg> -->
 		<!-- set注入需要注入对象的set，get方法 ,自动装配同样也是需要注入对象的set方法-->
 		<!-- <property name="dataSource" ref="dataSource"></property> -->
-		<bean id="userDao" class="com.spring.dao.MysqlUserDao" autowire="byName"></bean>
+		<bean id="userDao" class="com.spring.dao.MysqlUserDao">
+			<constructor-arg index="0" ref="dataSource"></constructor-arg>
+		</bean>
 		<!-- 默认注入 -->
 		<!-- <bean id="userLoginService" class="com.spring.service.UserLoginService">
 			<property name="userDao" ref="userDao"></property>
@@ -104,15 +106,16 @@
 		 		<entry key="3" value="德国"></entry>
 		 	</util:map>
 		 	
-		 	<util:properties id="properties">
-		 		<prop key="name">root</prop>
-		 		<prop key="password">123456</prop>
+		 	<util:properties id="properties" location="classpath:db.properties">
 		 	</util:properties>
 		 	<!-- 引用方式注入集合属性 -->
 		 	<bean id="message2" class="com.spring.dao.MessageBean">
+		 		<property name="name" value="#{properties.name}"></property>
+		 		<property name="password" value="#{properties.password}"></property>
 		 		<property name="list" ref="list"></property>
 		 		<property name="set" ref="set"></property>
 		 		<property name="map" ref="map"></property>
-		 		<property name="properties" ref="properties"></property>
+		 		<!-- <property name="properties" ref="properties"></property> -->
 		 	</bean>
+		 	<context:component-scan base-package="com.spring"></context:component-scan>
 </beans>

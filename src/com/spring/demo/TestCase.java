@@ -84,4 +84,14 @@ public class TestCase {
 		MessageBean mb = ac.getBean("message2",MessageBean.class);
 		mb.excute();
 	}
+	@Test
+	public void testComponent(){
+		String con = "applicationContext.xml";
+		AbstractApplicationContext ac =new ClassPathXmlApplicationContext(con);
+		ExampleBean eb = ac.getBean("exampleBean",ExampleBean.class);
+		ExampleBean eb2 = ac.getBean("exampleBean",ExampleBean.class);
+		System.out.println(eb==eb2);
+		eb.excute();
+		ac.close();
+	}
 }
